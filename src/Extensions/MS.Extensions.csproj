@@ -1,0 +1,20 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <RootNamespace>MS.Extensions</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="Configuration\Xml\" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <InternalsVisibleTo Include="MS.Extensions.Tests" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="1.1.0" />
+  </ItemGroup>
+
+</Project>
