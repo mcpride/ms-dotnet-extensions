@@ -12,22 +12,36 @@ namespace MS.Extensions.IO.Xml
     /// </summary>
     public class XmlStreamToDictionaryParser : IStreamToDictionaryParser
     {
+        private readonly ParseToDictionaryOptions _options;
+
+        /// <summary>
+        /// Creates a new instance of <c>XmlStreamToDictionaryParser</c>.
+        /// </summary>
+        /// <param name="options">The parser options.</param>
+        public XmlStreamToDictionaryParser(ParseToDictionaryOptions options = null)
+        {
+            _options = options;
+        }
+
+        /// <summary>
+        /// Loads the XML data from a stream.
+        /// </summary>
+        /// <param name="stream">The xml stream to read.</param>
+        public virtual IDictionary<string, string> Parse(Stream input)
+        {
+            return XmlStreamToDictionaryParser.ParseStream(input, _options);
+        }
+
         /// <summary>
         /// Loads the XML data from a stream.
         /// </summary>
         /// <param name="stream">The xml stream to read.</param>
         /// <param name="options">The parser options.</param>
-        public IDictionary<string, string> Parse(Stream stream, Action<StreamToDictionaryParserOptions> options = null)
+        public static IDictionary<string, string> ParseStream(Stream stream, ParseToDictionaryOptions options = null)
         {
-            var parserOptions = new StreamToDictionaryParserOptions 
-            {
-                KeyDelimiter = ".",
-                IsIdentifier = (attribute, _) => string.Equals("Name", attribute, StringComparison.OrdinalIgnoreCase)
-            };
+            var parserOptions = options ?? new ParseToDictionaryOptions();
 
-            options?.Invoke(parserOptions);
-            
-            var data = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
+            var data = new SortedDictionary<string, string>(StringComparer.OrdinalIgnoreCase);
 
             var readerSettings = new XmlReaderSettings()
             {
@@ -146,7 +160,7 @@ namespace MS.Extensions.IO.Xml
         }
 
         private static void ProcessAttributes(XmlReader reader, Stack<string> prefixStack, IDictionary<string, string> data,
-            Action<XmlReader, Stack<string>, IDictionary<string, string>, XmlWriter, StreamToDictionaryParserOptions> act, StreamToDictionaryParserOptions options, XmlWriter writer = null)
+            Action<XmlReader, Stack<string>, IDictionary<string, string>, XmlWriter, ParseToDictionaryOptions> act, ParseToDictionaryOptions options, XmlWriter writer = null)
         {
             for (int i = 0; i < reader.AttributeCount; i++)
             {
@@ -168,7 +182,7 @@ namespace MS.Extensions.IO.Xml
         // The special attribute "Name" only contributes to prefix
         // This method adds a prefix if current node in reader represents a "Name" attribute
         private static void AddNamePrefix(XmlReader reader, Stack<string> prefixStack,
-            IDictionary<string, string> data, XmlWriter writer, StreamToDictionaryParserOptions options)
+            IDictionary<string, string> data, XmlWriter writer, ParseToDictionaryOptions options)
         {
             if (!options.IsIdentifier(reader.LocalName, prefixStack))
             {
@@ -186,7 +200,7 @@ namespace MS.Extensions.IO.Xml
         // Common attributes contribute to key-value pairs
         // This method adds a key-value pair if current node in reader represents a common attribute
         private static void AddAttributePair(XmlReader reader, Stack<string> prefixStack,
-            IDictionary<string, string> data, XmlWriter writer, StreamToDictionaryParserOptions options)
+            IDictionary<string, string> data, XmlWriter writer, ParseToDictionaryOptions options)
         {
             //if (options.IsIndexAttribute(reader.LocalName, prefixStack))
             //{

@@ -6,18 +6,18 @@ using Xunit;
 using Xunit.Abstractions;
 
 // ReSharper disable InconsistentNaming
-namespace XmlStreamToDictionaryParser.Specifications
+namespace JsonStreamToDictionaryParser.Specifications
 {
-    public abstract partial class Given_a_XmlStreamToDictionaryParser
+    public abstract partial class Given_a_JsonStreamToDictionaryParser
     {
-        public abstract partial class Given_a_valid_xml_stream
+        public abstract partial class Given_a_valid_json_stream
         {
-            public class When_parser_parses_the_valid_xml_stream : Given_a_valid_xml_stream
+            public class When_parser_parses_the_valid_json_stream : Given_a_valid_json_stream
             {
                 private readonly ITestOutputHelper _output;
                 private IDictionary<string, string> _actual;
 
-                public When_parser_parses_the_valid_xml_stream(ITestOutputHelper output)
+                public When_parser_parses_the_valid_json_stream(ITestOutputHelper output)
                 {
                     _output = output;
                 }
@@ -55,8 +55,8 @@ namespace XmlStreamToDictionaryParser.Specifications
 
                     Arrange(options);
                     Act();
-                    Assert.Collection(_actual,
-                        pair => { },
+                    Assert.Collection(_actual, 
+                        pair => {},
                         pair =>
                         {
                             Assert.Contains($"{_keyDelimiter}Endpoints{_keyDelimiter}WebStatelessEndpoint{_keyDelimiter}", pair.Key);
@@ -93,8 +93,8 @@ namespace XmlStreamToDictionaryParser.Specifications
                         {
                             return stack.FirstOrDefault() switch
                             {
-                                "Endpoint" => (string.Equals(attribute, "Id", StringComparison.OrdinalIgnoreCase)),
-                                "Route" => (string.Equals(attribute, "RouteId", StringComparison.OrdinalIgnoreCase)),
+                                "Endpoints" => (string.Equals(attribute, "Id", StringComparison.OrdinalIgnoreCase)),
+                                "Routes" => (string.Equals(attribute, "RouteId", StringComparison.OrdinalIgnoreCase)),
                                 _ => false
                             };
                         }

@@ -4,13 +4,7 @@ using System.IO;
 
 namespace MS.Extensions.IO
 {
-    public interface IStreamToDictionaryParser
+    public interface IStreamToDictionaryParser : IStreamParser<IDictionary<string, string>>
     {
-        /// <summary>
-        /// Loads the XML data from a stream.
-        /// </summary>
-        /// <param name="stream">The xml stream to read.</param>
-        /// <param name="options">The parser options.</param>
-        IDictionary<string, string> Parse(Stream stream, Action<StreamToDictionaryParserOptions> options = null);
     }
 }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace MS.Extensions.IO
 {
-    public class StreamToDictionaryParserOptions
+    public class ParseToDictionaryOptions
     {
         public IEnumerable<string> Parents { get; set; }
         public string KeyDelimiter { get; set; } = ".";

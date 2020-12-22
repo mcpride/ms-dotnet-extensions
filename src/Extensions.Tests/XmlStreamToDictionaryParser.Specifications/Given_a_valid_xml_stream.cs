@@ -1,3 +1,4 @@
+using MS.Extensions.IO;
 using System;
 using System.IO;
 using System.Text;
@@ -9,30 +10,30 @@ namespace XmlStreamToDictionaryParser.Specifications
     {
         public abstract partial class Given_a_valid_xml_stream : Given_a_XmlStreamToDictionaryParser, IDisposable
         {
-            private const string _xml =
-                @"<?xml version=""1.0"" encoding=""utf-8""?>" +
-                @"<Service enableDynamicOverrides=""false"">" +
-                @"  <Endpoints>" +
-                @"    <Endpoint id=""WebStatelessEndpoint"" enable=""true"">" +
-                @"      <Routes>" +
-                @"        <Route routeId=""RouteApi"" order=""1"">" +
-                @"          <Match path=""/WebStateless/api/{**catch-all}"" />" +
-                @"        </Route>" +
-                @"        <Route routeId=""RouteUi"" order=""1"">" +
-                @"          <Match path=""/WebStateless/ui/{**catch-all}"" />" +
-                @"        </Route>" +
-                @"      </Routes>" +
-                @"    </Endpoint>" +
-                @"  </Endpoints>" +
+            private readonly string _xml =
+                @"<?xml version=""1.0"" encoding=""utf-8""?>" + Environment.NewLine +
+                @"<Service enableDynamicOverrides=""false"">" + Environment.NewLine +
+                @"  <Endpoints>" + Environment.NewLine +
+                @"    <Endpoint id=""WebStatelessEndpoint"" enable=""true"">" + Environment.NewLine +
+                @"      <Routes>" + Environment.NewLine +
+                @"        <Route routeId=""RouteApi"" order=""1"">" + Environment.NewLine +
+                @"          <Match path=""/WebStateless/api/{**catch-all}"" />" + Environment.NewLine +
+                @"        </Route>" + Environment.NewLine +
+                @"        <Route routeId=""RouteUi"" order=""1"">" + Environment.NewLine +
+                @"          <Match path=""/WebStateless/ui/{**catch-all}"" />" + Environment.NewLine +
+                @"        </Route>" + Environment.NewLine +
+                @"      </Routes>" + Environment.NewLine +
+                @"    </Endpoint>" + Environment.NewLine +
+                @"  </Endpoints>" + Environment.NewLine +
                 @"</Service>";
 
             protected string _keyDelimiter = ".";
 
             protected Stream _stream;
 
-            protected override void Arrange()
+            protected override void Arrange(ParseToDictionaryOptions options)
             {
-                base.Arrange();
+                base.Arrange(options);
                 _stream = new MemoryStream(Encoding.ASCII.GetBytes(_xml));
             }
 
