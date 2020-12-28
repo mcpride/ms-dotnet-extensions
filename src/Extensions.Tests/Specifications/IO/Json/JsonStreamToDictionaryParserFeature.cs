@@ -41,10 +41,10 @@ namespace Specifications.IO.Json
         {
         }
 
-        [Scenario(DisplayName = "Parse a valid xml stream")]
+        [Scenario(DisplayName = "Parse a valid json stream")]
         [Example(".")]
         [Example(":")]
-        public void ParseValidXmlStream(string keyDelimiter)
+        public void ParseValidJsonStream(string keyDelimiter)
         {
             $"Given a valid json stream"
                 .x(() => Arrange(_json));
