@@ -184,14 +184,19 @@ namespace MS.Extensions.IO.Xml
         private static void AddNamePrefix(XmlReader reader, Stack<string> prefixStack,
             IDictionary<string, string> data, XmlWriter writer, ParseToDictionaryOptions options)
         {
-            if (!options.IsIdentifier(reader.LocalName, prefixStack))
-            {
-                return;
-            }
-
+            string prefix = null;
             if (prefixStack.Any())
             {
-                prefixStack.Pop();
+                prefix = prefixStack.Pop();
+            }
+
+            if (!options.IsIdentifier(reader.LocalName, prefixStack))
+            {
+                if (prefix != null)
+                {
+                    prefixStack.Push(prefix);
+                }
+                return;
             }
 
             prefixStack.Push(reader.Value);

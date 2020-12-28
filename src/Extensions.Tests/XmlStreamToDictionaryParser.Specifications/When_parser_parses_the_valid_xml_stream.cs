@@ -93,8 +93,8 @@ namespace XmlStreamToDictionaryParser.Specifications
                         {
                             return stack.FirstOrDefault() switch
                             {
-                                "Endpoint" => (string.Equals(attribute, "Id", StringComparison.OrdinalIgnoreCase)),
-                                "Route" => (string.Equals(attribute, "RouteId", StringComparison.OrdinalIgnoreCase)),
+                                "Endpoints" => (string.Equals(attribute, "Id", StringComparison.OrdinalIgnoreCase)),
+                                "Routes" => (string.Equals(attribute, "RouteId", StringComparison.OrdinalIgnoreCase)),
                                 _ => false
                             };
                         }
