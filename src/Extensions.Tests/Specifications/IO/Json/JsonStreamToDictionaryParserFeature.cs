@@ -41,13 +41,13 @@ namespace Specifications.IO.Json
         {
         }
 
-        [Scenario(DisplayName = "Parse a valid json stream")]
+        [Scenario(DisplayName = "Parse a valid json stream to values and hierarchical keys with given delimiter")]
         [Example(".")]
         [Example(":")]
         public void ParseValidJsonStream(string keyDelimiter)
         {
             $"Given a valid json stream"
-                .x(() => Arrange(_json));
+                .x(() => ArrangeStream(_json));
 
             $"And a JsonStreamToDictionaryParser instance"
                 .x(() =>
@@ -59,13 +59,13 @@ namespace Specifications.IO.Json
                 .x(Act);
 
             $"Then the resulting dictionary should contain all key value pairs"
-                .x(Assert_resulting_dictionary_should_contain_all_key_value_pairs);
+                .x(AssertResultShouldContainAllKVPairs);
 
             $"And the resulting dictionary should contain the configured indexes"
-                .x(Assert_resulting_dictionary_should_contain_the_configured_indexes);
+                .x(AssertResultingShouldContainConfiguredIndexes);
 
             $"And all keys of the resulting dictionary should start with the configured parents"
-                .x(Assert_all_keys_of_the_resulting_dictionary_should_start_with_the_configured_parents);
+                .x(AssertKeysShouldStartWithConfiguredParents);
         }
     }
 }

@@ -27,7 +27,7 @@ namespace Specifications.IO
             _output = output;
         }
 
-        protected virtual void Arrange(string text)
+        protected virtual void ArrangeStream(string text)
         {
             _stream = new MemoryStream(Encoding.ASCII.GetBytes(text));
         }
@@ -41,12 +41,12 @@ namespace Specifications.IO
             }
         }
 
-        protected void Assert_resulting_dictionary_should_contain_all_key_value_pairs()
+        protected void AssertResultShouldContainAllKVPairs()
         {
             Assert.Equal(9, _actual.Count);
         }
 
-        protected void Assert_resulting_dictionary_should_contain_the_configured_indexes()
+        protected void AssertResultingShouldContainConfiguredIndexes()
         {
             Assert.Collection(_actual,
                 pair => { },
@@ -83,7 +83,7 @@ namespace Specifications.IO
             );
         }
 
-        protected void Assert_all_keys_of_the_resulting_dictionary_should_start_with_the_configured_parents()
+        protected void AssertKeysShouldStartWithConfiguredParents()
         {
             Assert.All(_actual, pair => Assert.StartsWith($"MyApp{_keyDelimiter}MyService{_keyDelimiter}", pair.Key));
         }
