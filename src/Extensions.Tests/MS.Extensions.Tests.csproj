@@ -9,6 +9,16 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Specifications\Configuration\Json\JsonFileConfigurationFeature.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Specifications\Configuration\Json\JsonFileConfigurationFeature.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.8.0" />
     <PackageReference Include="Xbehave" Version="2.4.1" />
     <PackageReference Include="xunit" Version="2.4.1" />
@@ -24,6 +34,10 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Extensions\MS.Extensions.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Specifications\Configuration\Xml\" />
   </ItemGroup>
 
 </Project>

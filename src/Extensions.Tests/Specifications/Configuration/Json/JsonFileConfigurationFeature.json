@@ -1,0 +1,25 @@
+﻿{
+  "enableDynamicOverrides": "false",
+  "Endpoints": [
+    {
+      "id": "WebStatelessEndpoint",
+      "enable": "true",
+      "Routes": [
+        {
+          "routeId": "RouteApi",
+          "order": "1",
+          "Match": {
+            "path": "/WebStateless/api/{**catch-all}"
+          }
+        },
+        {
+          "routeId": "RouteUi",
+          "order": "2",
+          "Match": {
+            "path": "/WebStateless/ui/{**catch-all}"
+          }
+        }
+      ]
+    }
+  ]
+}
